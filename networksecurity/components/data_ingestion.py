@@ -45,7 +45,7 @@ class DataIngestion:
     
     def export_data_into_feature_store(self,dataframe:pd.DataFrame):
         try:
-            feature_store_file_path=self.data_ingestion_config.feature_store_dir
+            feature_store_file_path=self.data_ingestion_config.feature_store_file_path
             #Creating folder
             dir_path=os.path.dirname(feature_store_file_path)
             os.makedirs(dir_path,exist_ok=True)
