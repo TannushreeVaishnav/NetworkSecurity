@@ -22,11 +22,30 @@ from sklearn.ensemble import (
     RandomForestClassifier
     ) 
 
+#import mlflow
+#mlflow.set_tracking_uri("sqlite:///mlflow.db")  is used for local  
+#mlflow.set_experiment("NetworkSecurityProject")
+
+#import dagshub
+#used for remote tracking
+#dagshub.init(repo_owner='vaishnavtannushree', repo_name='NetworkSecurity', mlflow=True)
+
+
+
+
+
+import dagshub
+dagshub.init(
+    repo_owner='vaishnavtannushree',
+    repo_name='NetworkSecurity',
+    mlflow=True
+)
+
 import mlflow
-mlflow.set_tracking_uri("sqlite:///mlflow.db")   
+
 mlflow.set_experiment("NetworkSecurityProject")
 
-
+print("TRACKING URI:", mlflow.get_tracking_uri())   # ✅ DEBUG LINE
 
 
 class ModelTrainer:
@@ -117,6 +136,9 @@ class ModelTrainer:
 
         Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
         save_object(self.model_trainer_config.trained_model_file_path,obj=Network_Model)
+
+        #Model pusher
+        save_object("final_model/model.pkl",best_model)
 
         ##Model Trainer Artifact
         model_trainer_artifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,
