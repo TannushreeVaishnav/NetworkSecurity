@@ -1,0 +1,7 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = https://dagshub.com/vaishnavtannushree/NetworkSecurity.dvc
+    auth = basic
+    user = vaishnavtannushree
+    password = e2b1275f1b58a16b608d020bd2bd100a71de243d
