@@ -1,0 +1,6 @@
+outs:
+- md5: 3f8289d7c2086133ffd0d1ea414fdd9d.dir
+  size: 800203
+  nfiles: 1
+  hash: md5
+  path: Network_Data
