@@ -1,8 +1,6 @@
 venv
 .env
-/Network_Data
-/valid_data
-/prediction_output
-/final_model
 /logs
+
+/final_model
 /Artifacts
