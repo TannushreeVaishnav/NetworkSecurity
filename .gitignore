@@ -4,3 +4,4 @@ venv
 /valid_data
 /prediction_output
 /final_model
+/logs

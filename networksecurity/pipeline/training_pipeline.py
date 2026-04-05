@@ -73,36 +73,7 @@ class TrainingPipeline:
         except Exception as e:
             raise NetworkSecurityException(e,sys)
 
-    def sync_artifact_dir_to_dvc(self):
-    try:
-        from networksecurity.cloud.dvc_syncer import DVCSync
-
-        dvc_sync = DVCSync()
-        artifact_dir = self.training_pipeline_config.artifact_dir
-
-        dvc_sync.sync_to_remote(
-            folder=artifact_dir,
-            message="Update artifacts via DVC"
-        )
-
-    except Exception as e:
-        raise NetworkSecurityException(e, sys)
-
-    def sync_artifact_dir_to_dvc(self):
-    try:
-        from networksecurity.cloud.dvc_syncer import DVCSync
-
-        dvc_sync = DVCSync()
-        artifact_dir = self.training_pipeline_config.artifact_dir
-
-        dvc_sync.sync_to_remote(
-            folder=artifact_dir,
-            message="Update artifacts via DVC"
-        )
-
-    except Exception as e:
-        raise NetworkSecurityException(e, sys)
-        
+   
     def run_pipeline(self):
         try:
             data_ingestion_artifact=self.start_data_ingestion()
