@@ -5,3 +5,4 @@ venv
 /prediction_output
 /final_model
 /logs
+/Artifacts

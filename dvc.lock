@@ -1,0 +1,35 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python main.py
+    deps:
+    - path: Network_Data
+      hash: md5
+      md5: 3f8289d7c2086133ffd0d1ea414fdd9d.dir
+      size: 800203
+      nfiles: 1
+    - path: main.py
+      hash: md5
+      md5: 306a5201b106f3fbfd5059a5c76fb101
+      size: 2488
+    - path: networksecurity/
+      hash: md5
+      md5: b7ff97f038ebff99df75e086d1873cc6.dir
+      size: 40899
+      nfiles: 28
+    - path: valid_data
+      hash: md5
+      md5: 99d13a72c302f8ac9384ebb589c0b483.dir
+      size: 1285
+      nfiles: 1
+    outs:
+    - path: Artifacts
+      hash: md5
+      md5: fa20bac9d1489ecceeef583737527a6b.dir
+      size: 13261916
+      nfiles: 10
+    - path: final_model
+      hash: md5
+      md5: 23cac6b9a0ea46dd355ee5785febad03.dir
+      size: 5727445
+      nfiles: 2

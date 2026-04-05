@@ -1,0 +1,11 @@
+stages:
+  train:
+    cmd: python main.py
+    deps:
+      - main.py
+      - networksecurity/
+      - Network_Data
+      - valid_data
+    outs:
+      - Artifacts
+      - final_model
