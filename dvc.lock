@@ -1,0 +1,81 @@
+schema: '2.0'
+stages:
+  network_security_pipeline:
+    cmd: python main.py
+    deps:
+    - path: main.py
+      hash: md5
+      md5: 306a5201b106f3fbfd5059a5c76fb101
+      size: 2488
+    - path: networksecurity/components/data_ingestion.py
+      hash: md5
+      md5: cb12d3b53d2fd7d0e490cac5d6d7a175
+      size: 3736
+    - path: networksecurity/components/data_transformation.py
+      hash: md5
+      md5: 23456c9a999c1ca85e0e1d60d0e15ae5
+      size: 4986
+    - path: networksecurity/components/data_validation.py
+      hash: md5
+      md5: f2180bbd9aba56070c625c0f74cb6f84
+      size: 5298
+    - path: networksecurity/components/model_trainer.py
+      hash: md5
+      md5: 0fdfa683712dd4d7896783e49b6138f5
+      size: 6815
+    - path: networksecurity/utils/ml_utils/model/estimator.py
+      hash: md5
+      md5: 32f5f5332e5c70b26c0e6df7c219027f
+      size: 735
+    params:
+      params.yaml:
+        ModelTrainer.AdaBoost.learning_rate:
+        - 0.1
+        - 0.01
+        - 0.5
+        - 0.001
+        ModelTrainer.AdaBoost.n_estimators:
+        - 8
+        - 16
+        - 32
+        - 64
+        - 128
+        - 256
+        ModelTrainer.DecisionTree.criterion:
+        - gini
+        - entropy
+        - log_loss
+        ModelTrainer.GradientBoosting.learning_rate:
+        - 0.1
+        - 0.01
+        - 0.05
+        - 0.001
+        ModelTrainer.GradientBoosting.n_estimators:
+        - 8
+        - 16
+        - 32
+        - 64
+        - 128
+        - 256
+        ModelTrainer.RandomForest.criterion:
+        - gini
+        - entropy
+        - log_loss
+        ModelTrainer.RandomForest.n_estimators:
+        - 8
+        - 16
+        - 32
+        - 64
+        - 128
+        - 256
+    outs:
+    - path: artifacts/
+      hash: md5
+      md5: 3fee761979290ef3c342630f7ca9cb57.dir
+      size: 23136092
+      nfiles: 10
+    - path: final_model/
+      hash: md5
+      md5: 9f55ec17b4a7a20a5cf42bb35076fe6e.dir
+      size: 15601621
+      nfiles: 2
