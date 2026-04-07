@@ -53,11 +53,14 @@ async def train_route():
     try:
         train_pipeline=TrainingPipeline()
         train_pipeline.run_pipeline()
+        
+        # 🚀 Updates are securely handled natively by the DVC pipeline structure now.
+        
         return Response(content="Training is Successful")
     except Exception as e:
         raise NetworkSecurityException(e,sys)
     
-
+"""
 @app.post("/predict")
 async def predict_route(request:Request,file:UploadFile=File(...)):
     try:
@@ -73,27 +76,58 @@ async def predict_route(request:Request,file:UploadFile=File(...)):
         print(df['predicted_column'])
         #df['predicted_column'].replace(-1,0)
         #return df.to_json()
-
-
-        os.makedirs("prediction_output", exist_ok=True)
-
-        
         df.to_csv("prediction_output/output.csv")
         table_html=df.to_html(classes='table table-striped')
         #print(table_html)
-        # THE FIXED CODE
-        return templates.TemplateResponse(
-            request=request,                                    # <--- passed request explicitly
-            name="table.html",                                  # <--- template name
-            context={"request": request, "table": table_html}   # <--- data dictionary
-        )
-
+        return templates.TemplateResponse("table.html",{"request":request,"table":table_html})
     except Exception as e:
         raise NetworkSecurityException(e,sys)
     
+"""
+@app.post("/predict")
+async def predict_route(request: Request, file: UploadFile = File(...)):
+    try:
+        df = pd.read_csv(file.file)
 
+        # ✅ IMPORTANT FIX 1: match training columns format
+        df.columns = df.columns.str.strip()
 
+        # Load model
+        preprocessor = load_object("final_model/preprocessor.pkl")
+        final_model = load_object("final_model/model.pkl")
 
+        network_model = NetworkModel(
+            preprocessor=preprocessor,
+            model=final_model
+        )
+
+        print("Input Row:", df.iloc[0])
+
+        # ✅ IMPORTANT FIX 2: pass DataFrame (NOT .values)
+        y_pred = network_model.predict(df)
+
+        print("Prediction:", y_pred)
+
+        df['predicted_column'] = y_pred
+
+        # Save output
+        os.makedirs("prediction_output", exist_ok=True)
+        df.to_csv("prediction_output/output.csv", index=False)
+
+        # 🚀 Automatically update DVC with the newly created prediction output
+        os.system("dvc add prediction_output")
+
+        table_html = df.to_html(classes='table table-striped')
+
+        return templates.TemplateResponse(
+            request=request,
+            name="table.html",
+            context={"request": request, "table": table_html}
+        )
+
+    except Exception as e:
+        print("ERROR:", e)
+        raise NetworkSecurityException(e, sys)
 
 if __name__=="__main__":
     app_run(app,host="localhost",port=8000)

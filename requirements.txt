@@ -12,6 +12,7 @@ dagshub
 fastapi
 uvicorn
 dvc
+dvc-s3
 
 
 
